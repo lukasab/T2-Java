@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.Period;
 
 abstract class Vegetal {
-    
+
     private String codigo;
     private int diasExpirar;
     private String nome;
@@ -92,11 +95,11 @@ abstract class Vegetal {
         return possuiEmbalagem;
     }
 
-    Vegetal (String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem){
+    Vegetal(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
         this.codigo = codigo;
         this.diasExpirar = diasExpirar;
         this.nome = nome;
-        this.organico = organico;    
+        this.organico = organico;
         this.pesoMedio = pesoMedio;
         this.possuiEmbalagem = possuiEmbalagem;
     }
@@ -107,7 +110,7 @@ abstract class Vegetal {
  * Fruta extends Vegetal
  */
 public class Fruta extends Vegetal {
-    Fruta(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem){
+    Fruta(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
         super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
     }
 }
@@ -116,7 +119,7 @@ public class Fruta extends Vegetal {
  * Fruta extends Vegetal
  */
 public class Legume extends Vegetal {
-    Legume(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem){
+    Legume(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
         super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
     }
 }
@@ -125,11 +128,29 @@ public class Legume extends Vegetal {
  * Fruta extends Vegetal
  */
 public class Verdura extends Vegetal {
-    Verdura(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem){
+    Verdura(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
         super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
     }
 }
 
+public class Transacao{
+
+    private LocalDate dataTransacao = new LocalDate();
+    private String enderecoFornecedor;
+    private String nomeFornecedor;
+    private ArrayList<Float> pesoProduto = new ArrayList<Float>();
+    private ArrayList<Float> precoProduto = new ArrayList<Float>();
+    private ArrayList<Vegetal> produto = new ArrayList<Vegetal>();
+
+    Transacao (LocalDate dataTransacao, String enderecoFornecedor, String nomeFornecedor, float pesoProduto, float precoProduto, Vegetal veg) {
+        this.dataTransacao = dataTransacao;
+        this.enderecoFornecedor = enderecoFornecedor;
+        this.nomeFornecedor = nomeFornecedor;
+        this.pesoProduto.add(pesoProduto);
+        this.precoProduto.add(precoProduto);
+        this.produto.add(veg);
+    }
+}
 /**
  * T2
  */
