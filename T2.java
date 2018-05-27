@@ -5,7 +5,7 @@ import java.time.Period;
 abstract class Vegetal {
 
     private String codigo;
-    private int diasExpirar;
+    private int duracaoDias;
     private String nome;
     private boolean organico;
     private float pesoMedio;
@@ -19,16 +19,16 @@ abstract class Vegetal {
     }
 
     /**
-     * @param diasExpirar the diasExpirar to set
+     * @param duracaoDias the duracaoDias to set
      */
-    public void setDiasExpirar(int diasExpirar) {
-        this.diasExpirar = diasExpirar;
+    public void setDuracaoDias(int duracaoDias) {
+        this.duracaoDias = duracaoDias;
     }
 
     /**
      * @param nome the nome to set
      */
-    public void setNome(Strubg nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
@@ -61,16 +61,16 @@ abstract class Vegetal {
     }
 
     /**
-     * @return the diasExpirar
+     * @return the duracaoDias
      */
-    public int getDiasExpirar() {
-        return diasExpirar;
+    public int getDuracaoDias() {
+        return duracaoDias;
     }
 
     /**
      * @return the nome
      */
-    public Strubg getNome() {
+    public String getNome() {
         return nome;
     }
 
@@ -95,23 +95,29 @@ abstract class Vegetal {
         return possuiEmbalagem;
     }
 
-    Vegetal(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
+    Vegetal(String codigo, int duracaoDias, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
         this.codigo = codigo;
-        this.diasExpirar = diasExpirar;
+        this.duracaoDias = duracaoDias;
         this.nome = nome;
         this.organico = organico;
         this.pesoMedio = pesoMedio;
         this.possuiEmbalagem = possuiEmbalagem;
     }
 
+    @Override
+    public String toString() {
+        return "Codigo: " + this.codigo + ", Duração média em dias: " + this.duracaoDias
+        + ", Nome: " + this.nome + ", Organico: " + this.organico + ", Peso médio: " + this.pesoMedio
+        + ", Possui embalagem: " + this.possuiEmbalagem;
+    }
 }
 
 /**
  * Fruta extends Vegetal
  */
 public class Fruta extends Vegetal {
-    Fruta(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
-        super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
+    Fruta(String codigo, int duracaoDias, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
+        super(codigo, duracaoDias, nome, organico, pesoMedio, possuiEmbalagem);
     }
 }
 
@@ -119,8 +125,8 @@ public class Fruta extends Vegetal {
  * Fruta extends Vegetal
  */
 public class Legume extends Vegetal {
-    Legume(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
-        super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
+    Legume(String codigo, int duracaoDias, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
+        super(codigo, duracaoDias, nome, organico, pesoMedio, possuiEmbalagem);
     }
 }
 
@@ -128,8 +134,8 @@ public class Legume extends Vegetal {
  * Fruta extends Vegetal
  */
 public class Verdura extends Vegetal {
-    Verdura(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
-        super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
+    Verdura(String codigo, int duracaoDias, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
+        super(codigo, duracaoDias, nome, organico, pesoMedio, possuiEmbalagem);
     }
 }
 
@@ -142,6 +148,90 @@ public class Transacao{
     private ArrayList<Float> precoProduto = new ArrayList<Float>();
     private ArrayList<Vegetal> produto = new ArrayList<Vegetal>();
 
+    /**
+     * @param dataTransacao the dataTransacao to set
+     */
+    public void setDataTransacao(LocalDate dataTransacao) {
+        this.dataTransacao = dataTransacao;
+    }
+
+    /**
+     * @param enderecoFornecedor the enderecoFornecedor to set
+     */
+    public void setEnderecoFornecedor(String enderecoFornecedor) {
+        this.enderecoFornecedor = enderecoFornecedor;
+    }
+
+    /**
+     * @param nomeFornecedor the nomeFornecedor to set
+     */
+    public void setNomeFornecedor(String nomeFornecedor) {
+        this.nomeFornecedor = nomeFornecedor;
+    }
+
+    /**
+     * @param pesoProduto the pesoProduto to set
+     */
+    public void setPesoProduto(ArrayList<Float> pesoProduto) {
+        this.pesoProduto = pesoProduto;
+    }
+
+    /**
+     * @param precoProduto the precoProduto to set
+     */
+    public void setPrecoProduto(ArrayList<Float> precoProduto) {
+        this.precoProduto = precoProduto;
+    }
+
+    /**
+     * @param produto the produto to set
+     */
+    public void setProduto(ArrayList<Vegetal> produto) {
+        this.produto = produto;
+    }
+
+    /**
+     * @return the dataTransacao
+     */
+    public LocalDate getDataTransacao() {
+        return dataTransacao;
+    }
+
+    /**
+     * @return the enderecoFornecedor
+     */
+    public String getEnderecoFornecedor() {
+        return enderecoFornecedor;
+    }
+
+    /**
+     * @return the nomeFornecedor
+     */
+    public String getNomeFornecedor() {
+        return nomeFornecedor;
+    }
+
+    /**
+     * @return the pesoProduto
+     */
+    public ArrayList<Float> getPesoProduto() {
+        return pesoProduto;
+    }
+
+    /**
+     * @return the precoProduto
+     */
+    public ArrayList<Float> getPrecoProduto() {
+        return precoProduto;
+    }
+
+    /**
+     * @return the produto
+     */
+    public ArrayList<Vegetal> getProduto() {
+        return produto;
+    }
+
     Transacao (LocalDate dataTransacao, String enderecoFornecedor, String nomeFornecedor, float pesoProduto, float precoProduto, Vegetal veg) {
         this.dataTransacao = dataTransacao;
         this.enderecoFornecedor = enderecoFornecedor;
@@ -150,12 +240,37 @@ public class Transacao{
         this.precoProduto.add(precoProduto);
         this.produto.add(veg);
     }
+
+    public void AdicionaProduto(Vegetal novoVegetal) {
+        this.produto.add(novoVegetal);
+    }
+
+    public void PrintInfoProdutos() {
+        for(int i = 0; i < this.produto.size(); i++){
+            System.out.println("Produto " + (i+1) + ":");
+            System.out.println(this.produto.get(i));
+        }
+    }
 }
+
 /**
  * T2
  */
 public class T2 {
-
+//     /**
+//      * @return the produto
+//      */
+//     public static boolean VerificaFornecedor (ArrayList<Transacao> transacoes, LocalDate dataTransacao, String enderecoFornecedor, String nomeFornecedor, float pesoProduto, float precoProduto, Verdura produto){
+//         for (int i = 0; i < transacoes.size(); i++) {
+//             if (transacoes.get(i).getNomeFornecedor() == nomeFornecedor) {
+//                 transacoes.get(i).AdicionaProduto(produto);
+//                 transacoes.get(i)
+//                 return true;
+//             }
+//         }
+//         transacoes.add(e);
+//         return false;
+//     }
     public static void main(String[] args) {
         System.out.println("Aqui que o programa começa");
 
