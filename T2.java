@@ -3,6 +3,7 @@ abstract class Vegetal {
     
     private String codigo;
     private int diasExpirar;
+    private String nome;
     private boolean organico;
     private float pesoMedio;
     private boolean possuiEmbalagem;
@@ -19,6 +20,13 @@ abstract class Vegetal {
      */
     public void setDiasExpirar(int diasExpirar) {
         this.diasExpirar = diasExpirar;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(Strubg nome) {
+        this.nome = nome;
     }
 
     /**
@@ -57,6 +65,13 @@ abstract class Vegetal {
     }
 
     /**
+     * @return the nome
+     */
+    public Strubg getNome() {
+        return nome;
+    }
+
+    /**
      * @return the organico
      */
     public boolean isOrganico() {
@@ -77,6 +92,42 @@ abstract class Vegetal {
         return possuiEmbalagem;
     }
 
+    Vegetal (String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem){
+        this.codigo = codigo;
+        this.diasExpirar = diasExpirar;
+        this.nome = nome;
+        this.organico = organico;    
+        this.pesoMedio = pesoMedio;
+        this.possuiEmbalagem = possuiEmbalagem;
+    }
+
+}
+
+/**
+ * Fruta extends Vegetal
+ */
+public class Fruta extends Vegetal {
+    Fruta(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem){
+        super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
+    }
+}
+
+/**
+ * Fruta extends Vegetal
+ */
+public class Legume extends Vegetal {
+    Legume(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem){
+        super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
+    }
+}
+
+/**
+ * Fruta extends Vegetal
+ */
+public class Verdura extends Vegetal {
+    Verdura(String codigo, int diasExpirar, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem){
+        super(codigo, diasExpirar, nome, organico, pesoMedio, possuiEmbalagem);
+    }
 }
 
 /**
