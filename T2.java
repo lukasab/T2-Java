@@ -1,4 +1,6 @@
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -272,7 +274,27 @@ public class T2 {
 //         return false;
 //     }
     public static void main(String[] args) {
-        System.out.println("Aqui que o programa começa");
+        System.out.println("Começando o Programa");
+        File txtFile = new File("C:\\Users\\lukasab\\OneDrive\\Doc\\UFSC\\18.1\\Programação de Sistemas Automatizados\\Java\\text.txt");
+        Scanner txtInput = new Scanner(txtFile);
+        txtInput.useDelimiter("\t");
 
+        while (txtInput.hasNext()) {
+            String tipoVegetal = txtInput.next();
+            String nomeVegetal = txtInput.next();
+            boolean organico = Boolean.valueOf(txtInput.next());
+            boolean embalagem = Boolean.valueOf(txtInput.next());
+            int duracaoDias = Integer.parseInt(txtInput.next());
+            String codigo = txtInput.next();
+            float pesoMedio = Float.parseFloat(txtInput.next());
+
+            String nomeFornecedor = txtInput.next();
+            String enderecoFornecedor = txtInput.next();
+            float precoProduto = Float.parseFloat(txtInput.next());
+            LocalDate dataTransacao = LocalDate.parse(txtInput.next());
+            float pesoProduto = Float.parseFloat(txtInput.next());
+        }
+
+        txtInput.close();
     }
 }
