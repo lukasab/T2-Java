@@ -117,7 +117,7 @@ abstract class Vegetal {
 /**
  * Fruta extends Vegetal
  */
-public class Fruta extends Vegetal {
+class Fruta extends Vegetal {
     Fruta(String codigo, int duracaoDias, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
         super(codigo, duracaoDias, nome, organico, pesoMedio, possuiEmbalagem);
     }
@@ -126,7 +126,7 @@ public class Fruta extends Vegetal {
 /**
  * Fruta extends Vegetal
  */
-public class Legume extends Vegetal {
+class Legume extends Vegetal {
     Legume(String codigo, int duracaoDias, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
         super(codigo, duracaoDias, nome, organico, pesoMedio, possuiEmbalagem);
     }
@@ -135,15 +135,15 @@ public class Legume extends Vegetal {
 /**
  * Fruta extends Vegetal
  */
-public class Verdura extends Vegetal {
+class Verdura extends Vegetal {
     Verdura(String codigo, int duracaoDias, String nome, boolean organico, float pesoMedio, boolean possuiEmbalagem) {
         super(codigo, duracaoDias, nome, organico, pesoMedio, possuiEmbalagem);
     }
 }
 
-public class Transacao{
+class Transacao{
 
-    private LocalDate dataTransacao = new LocalDate();
+    private LocalDate dataTransacao;
     private String enderecoFornecedor;
     private String nomeFornecedor;
     private ArrayList<Float> pesoProduto = new ArrayList<Float>();
@@ -273,7 +273,7 @@ public class T2 {
 //         transacoes.add(e);
 //         return false;
 //     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Começando o Programa");
         File txtFile = new File("C:\\Users\\lukasab\\OneDrive\\Doc\\UFSC\\18.1\\Programação de Sistemas Automatizados\\Java\\text.txt");
         Scanner txtInput = new Scanner(txtFile);
