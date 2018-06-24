@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Iterator;
 
 abstract class Vegetal {
 
@@ -262,7 +263,7 @@ public class T2 {
 //     /**
 //      * @return the produto
 //      */
-//     public static boolean VerificaFornecedor (ArrayList<Transacao> transacoes, LocalDate dataTransacao, String enderecoFornecedor, String nomeFornecedor, float pesoProduto, float precoProduto, Verdura produto){
+//     boolean VerificaFornecedor (ArrayList<Transacao> transacoes, LocalDate dataTransacao, String enderecoFornecedor, String nomeFornecedor, float pesoProduto, float precoProduto, Verdura produto){
 //         for (int i = 0; i < transacoes.size(); i++) {
 //             if (transacoes.get(i).getNomeFornecedor() == nomeFornecedor) {
 //                 transacoes.get(i).AdicionaProduto(produto);
@@ -275,9 +276,18 @@ public class T2 {
 //     }
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Começando o Programa");
-        File txtFile = new File("C:\\Users\\lukasab\\OneDrive\\Doc\\UFSC\\18.1\\Programação de Sistemas Automatizados\\Java\\text.txt");
+        File txtFile = new File("/home/neoson/Documents/P2-Java-Prog-Aut/text.txt");
         Scanner txtInput = new Scanner(txtFile);
         txtInput.useDelimiter("\t");
+        
+        ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
+        Transacao transacao_temp;
+
+
+        int fruta_counter = 0;
+        int legume_counter = 0;
+        int verdura_counter = 0;
+        boolean igual=false;
 
         while (txtInput.hasNext()) {
             String tipoVegetal = txtInput.next();
@@ -293,8 +303,81 @@ public class T2 {
             float precoProduto = Float.parseFloat(txtInput.next());
             LocalDate dataTransacao = LocalDate.parse(txtInput.next());
             float pesoProduto = Float.parseFloat(txtInput.next());
-        }
 
+            if(tipoVegetal.equals("F")){
+                Fruta frute_temp = new Fruta(codigo, duracaoDias, nomeVegetal, organico, pesoMedio, embalagem);
+                if (transacoes.size() > 0) {
+                    for (int i = 0; i < transacoes.size(); i++) {
+                        if (transacoes.get(i).getNomeFornecedor().equals(nomeFornecedor)) {
+                            transacoes.get(i).AdicionaProduto(frute_temp);
+                            igual =true;
+                            break;
+                        } else {
+                            igual = false;
+                        } 
+                    }
+                    if(igual == false){
+                        transacao_temp = new Transacao(dataTransacao, enderecoFornecedor, nomeFornecedor, pesoProduto, precoProduto, frute_temp);
+                        transacoes.add(transacao_temp);
+                    }
+                } else {
+                    transacao_temp = new Transacao(dataTransacao, enderecoFornecedor, nomeFornecedor, pesoProduto, precoProduto, frute_temp);
+                    transacoes.add(transacao_temp);
+                } 
+            } else if (tipoVegetal.equals("L")) {
+                Legume legume_temp = new Legume (codigo, duracaoDias, nomeVegetal, organico, pesoMedio, embalagem);
+                if (transacoes.size() > 0) {
+                    for (int i = 0; i < transacoes.size(); i++) {
+                        if (transacoes.get(i).getNomeFornecedor().equals(nomeFornecedor)) {
+                            transacoes.get(i).AdicionaProduto(legume_temp);
+                            igual =true;
+                            break;
+                        } else {
+                            igual = false;
+                        } 
+                    }
+                    if(igual == false){
+                        transacao_temp = new Transacao(dataTransacao, enderecoFornecedor, nomeFornecedor, pesoProduto, precoProduto, legume_temp);
+                        transacoes.add(transacao_temp);                        
+                    }
+                } else {
+                    transacao_temp = new Transacao(dataTransacao, enderecoFornecedor, nomeFornecedor, pesoProduto, precoProduto, legume_temp);
+                    transacoes.add(transacao_temp);
+                } 
+            } else if (tipoVegetal.equals("V")){
+                Verdura verdura_temp = new Verdura (codigo, duracaoDias, nomeVegetal, organico, pesoMedio, embalagem);
+                if (transacoes.size() > 0) {
+                    for (int i = 0; i < transacoes.size(); i++) {
+                        if (transacoes.get(i).getNomeFornecedor().equals(nomeFornecedor)) {
+                            transacoes.get(i).AdicionaProduto(verdura_temp);
+                            igual =true;
+                            break;
+                        } else {
+                            igual = false;
+                        } 
+                    }
+                    if(igual == false){
+                        transacao_temp = new Transacao(dataTransacao, enderecoFornecedor, nomeFornecedor, pesoProduto, precoProduto, verdura_temp);
+                        transacoes.add(transacao_temp);                        
+                    }
+                } else {
+                    transacao_temp = new Transacao(dataTransacao, enderecoFornecedor, nomeFornecedor, pesoProduto, precoProduto, verdura_temp);
+                    transacoes.add(transacao_temp);
+                } 
+            } else {
+                System.out.println("Tipo de produto invalido");
+            }
+        }
+        System.out.println(transacoes.size());
+        
+        for (int i = 0; i < transacoes.size(); i++) {
+            System.out.println(transacoes.get(i).getNomeFornecedor());
+            for (int j = 0; j < transacoes.get(i).getProduto().size(); j++) {
+                System.out.println(transacoes.get(i).getProduto().get(j).getNome());
+            }
+        } 
+
+        
         txtInput.close();
     }
 }
