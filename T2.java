@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.file.*;
 
 abstract class Vegetal {
 
@@ -402,46 +403,46 @@ public class T2 {
             System.out.println(inf.transacoes.get(i));
         }
         new JanelaPrincipal();
+        new JanelaMostra();
     }
 }
 
 class JanelaPrincipal extends Frame {
-
-	private	Label fixoTexto;	 
+ 
 	private Button botao1;
-	private Button botao2;
-	private TextField areaTexto;
-	private TextField forn;
-	private TextField nom;
-	private TextField loc;
-	private TextField og;
-	private TextField prc;
-	private TextField ps;
-	private TextField ud;
-	private TextField dia;
-	private TextField kgs;
-	private TextField DataTransacao;
-	private Label fornecedor;
-	private Label nome;
-	private Label local;
-	private Label org;
-	private Label preco;
+    private Label cod;
+    private Label nome;
+    private Label local;
+    private Label org;
+    private Label embalag;
+    private Label preco;
 	private Label peso;
 	private Label un;
 	private Label dias;
 	private Label kilos;
 	private Label DataT;
-	private Label Tipo;
-
-	ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
-
-	
-
-	private TextField campoTexto;
+    private Label Tipo;
+    private Label confirma;
+    private Label fornecedor;
+    private Label pesoProd;
+	private TextField codigo1;
+    private TextField forn;
     private Choice escolha;
-    private List lista;
-    private Checkbox caixa;
-    private Scrollbar barra;
+	private TextField nom;
+	private TextField loc;
+    private Choice og;
+    private Choice embalagem1;
+	private TextField prc;
+	private TextField ud;
+	private TextField dia;
+	private TextField kgs;
+	private TextField DataTransacao;
+    private TextField pesoProduto1;
+
+
+    ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
+    Transacao transacao;
+    Transacao transacao_temp;
 
 
 	// Classe interna para receber eventos associados com a janela
@@ -449,244 +450,185 @@ class JanelaPrincipal extends Frame {
 		public void windowClosing(WindowEvent e){
 			System.out.println("janela foi fechada");
 			System.exit(0);            
-			}    	
-		}
-
+		}    	
+	}
 
 	// // Classe interna para receber eventos do botao 1
 	class EscutaBotao1 implements ActionListener{
 	 	public void actionPerformed( ActionEvent e) {
-	 		if (escolha.getSelectedItem().equals("Fruta")){
-                
-			 }
-	 		}
- 	}	
+            // String codigo = codigo1.getText();
+            // String tipoVegetal = escolha.getSelectedItem();
+            // String nomeVegetal = nom.getText();
+            // boolean organico = Boolean.valueOf(og.getSelectedItem());
+            // boolean embalagem = Boolean.valueOf(embalagem1.getSelectedItem());
+            // int duracaoDias = Integer.parseInt(dia.getText());
+            // Float pesoMedio = Float.parseFloat(kgs.getText());
 
+            // String nomeFornecedor = forn.getText();
+            // String enderecoFornecedor = loc.getText();
+            // float precoProduto = Float.parseFloat(prc.getText());
+            // LocalDate dataTransacao = LocalDate.parse(DataTransacao.getText());
+            // float pesoProduto = Float.parseFloat(pesoProduto1.getText());
+            String novoTipo = "";
+            if (escolha.getSelectedItem().equals("Fruta")) {
+                novoTipo = "F";
+            } else if (escolha.getSelectedItem().equals("Legume")){
+                novoTipo = "L";
+            } else {
+                novoTipo = "V";
+            }
+            String novoNomeVegetal = nom.getText();
+            String novoOrganico = og.getSelectedItem();
+            String novaEmbalagem = embalagem1.getSelectedItem();
+            String novaDuracaoDias = dia.getText();
+            String novoCodigo = codigo1.getText();
+            String novoPesoMedio = kgs.getText();
+            String novoFornecedor = forn.getText();
+            String novoEnderecoFornecedor = loc.getText();
+            String novoPrecoProduto = prc.getText();
+            String novaDataTranscao = DataTransacao.getText();
+            String novoPesoProduto = pesoProduto1.getText();
 
-	// // Classe interna para receber eventos do botao 2
-	// class EscutaBotao2 implements ActionListener{
-	// 	public void actionPerformed( ActionEvent e) {
-	// 		areaTexto.append("Botao <2> acionado\n");
-	// 		areaTexto.append(">>" + campoTexto.getText() + "<<\n");
-	// 		}
-	// 	}	
+            String novoProdutoTxt = "\t" + novoTipo + "\t" + novoNomeVegetal + "\t" + novoOrganico + "\t" + novaEmbalagem + "\t" + novaDuracaoDias + "\t" + novoCodigo + "\t" + novoPesoMedio + "\t" + novoFornecedor + "\t" + novoEnderecoFornecedor + "\t" + novoPrecoProduto + "\t" + novaDataTranscao + "\t" + novoPesoProduto;  
+            try {
+                Files.write(Paths.get("/home/neoson/Documents/P2-Java-Prog-Aut/text.txt"), novoProdutoTxt.getBytes(), StandardOpenOption.APPEND);
+            }catch (IOException er) {
+                //exception handling left as an exercise for the reader
+            }
+            
+        }	
+    }
+     
+     class EscutaEscolha implements ItemListener {
 
+        public void itemStateChanged( ItemEvent e) {
+ 
+    
+        } 
+    }	
 
 	//Classe interna para lidar com return do campo texto
-	//class EscutaCampoTexto implements ActionListener {
-	//	public void actionPerformed( ActionEvent e) {
+	class EscutaCampoTexto implements ActionListener {
+		public void actionPerformed( ActionEvent e) {
 			//areaTexto.append("TEXTO " + campoTexto.getText() + "\n"); 
-	//		}
-	//	}
-
-
-	// //Classe interna para lidar com uma escolha
-	class EscutaEscolha implements ItemListener {
-
-	 	public void itemStateChanged( ItemEvent e) {
-	 		String item;
-	 		int index;
-		 
-	 		item = escolha.getSelectedItem();
-	 		index = escolha.getSelectedIndex();
-
-	// 		areaTexto.append("ESCOLHA " + item + " indice " + index + "\n" );
-	 		}
-	 	}
-
-
-	// //Classe interna para lidar com uma lista
-	// class EscutaLista implements ItemListener {
-
-	// 	public void itemStateChanged( ItemEvent e) {
-	// 		String item;
-	// 		int index;
-		 
-	// 		item = lista.getSelectedItem();
-	// 		index = lista.getSelectedIndex();
-
-	// 		areaTexto.append("LISTA " + item + " indice " + index + "\n" );
-	// 		}
-	// 	}
-
-
-	//Classe interna para lidar com uma checkbox
-	// class EscutaCaixa implements ItemListener {
-
-	// 	public void itemStateChanged( ItemEvent e) {
-	// 		if( caixa.getState() ) {
-	// 			//areaTexto.append("CAIXA LIGOU\n");
-	// 			//areaTexto.append("CAIXA DESLIGOU\n");
-	// 		}
-	// 	} }
-
-
-	//Classe interna para lidar com barra de rolagem
-	// class EscutaBarra implements AdjustmentListener {
-	// 	public void adjustmentValueChanged( AdjustmentEvent e) {
-	// 		int x = e.getValue();
-
-	// 		switch( e.getAdjustmentType() )
-	// 		  {	case AdjustmentEvent.UNIT_INCREMENT:
-	// 				areaTexto.append(x + "BARRA +1\n" );
-	// 				break;
-	// 			case AdjustmentEvent.UNIT_DECREMENT:
-	// 		        areaTexto.append(x + "BARRA -1\n" );
-	// 				break;
-	// 			case AdjustmentEvent.BLOCK_INCREMENT:
-	// 				areaTexto.append(x + "BARRA +bloco\n" );
-	// 				break;
-	// 			case AdjustmentEvent.BLOCK_DECREMENT:
-	// 				areaTexto.append(x + "BARRA -bloco\n" );
-	// 				break;
-	// 			case AdjustmentEvent.TRACK:
-    //     			areaTexto.append(x + "BARRA track\n" );
-	// 				break;
-	// 			}
-	// 		}
-	// 	}
-
-
-
-
-
+        } 
+    }
 
 	// Inicializa o frame
 	public JanelaPrincipal() {
 
-
-
 		System.out.println("inicio da janela");
 
-		this.setTitle("Minha Segunda Janela em Java");
+		this.setTitle("Nova Transação");
 
 		// Define o layout manager
-		GridLayout gl = new GridLayout(2,10);
+		GridLayout gl = new GridLayout(2,14);
 		this.setLayout( gl );
 
 		// Cria um texto fixo
 		//fixoTexto = new Label("texto fixo");
-		//this.add( fixoTexto);
-		nome = new Label("Nome");
-		this.add(nome);
-		Tipo=new Label ("Tipo");
+        //this.add( fixoTexto);
+        cod= new Label("Codigo");
+        this.add(cod);
+
+        Tipo=new Label ("Tipo:");
         this.add(Tipo);
-        org=new Label ("Organico");
+
+        nome = new Label("Nome");
+		this.add(nome);
+	
+        org=new Label ("É Organico?");
         this.add(org);
+        
+        embalag=new Label ("Possui embalagem?");
+        this.add(embalag);
+        
         preco = new Label ("Preco");
         this.add(preco);
-        kilos = new Label ("Peso");
+        
+        kilos = new Label ("Peso Unidade");
         this.add(kilos);
+        
         un = new Label ("Unidade Media");
         this.add(un);
-        dias = new Label ("Dias Validade");
+        
+        dias = new Label ("Dias Validos");
 		this.add(dias);
-		fornecedor = new Label("Fornecedor");
+        
+        fornecedor = new Label("Nome Fornecedor");
         this.add(fornecedor);
+        
         local = new Label("Local");
 		this.add(local);
-		DataT= new Label("Data Transacao");
-		this.add(DataT);
+        
+        DataT= new Label("Data Transacao");
+        this.add(DataT);
+
+        pesoProd = new Label ("Peso Total");
+        this.add(pesoProd);
+        
+        confirma=new Label ("Adicione o Produto");
+        this.add(confirma);
         
 
-		// Cria uma area para colocar texto
+        // Cria uma area para colocar texto
 
-		nom = new TextField("");
-		this.add(nom);
-
+        codigo1 = new TextField();
+        this.add(codigo1);
+        
 		escolha = new Choice();
 		escolha.addItem("Fruta");
 		escolha.addItem("Verdura");
-		escolha.addItem("Legume");
+        escolha.addItem("Legume");
+        this.add(escolha);
+        EscutaEscolha ee = new EscutaEscolha();
+		escolha.addItemListener( ee );
 
-		og = new TextField();
-		this.add(og);
-		prc = new TextField();
+        nom = new TextField();
+		this.add(nom);
 
-		this.add( prc );
-		kgs = new TextField();
+        og = new Choice();
+        og.addItem("true");
+		og.addItem("false");
+        this.add(og);
+        EscutaEscolha og1 = new EscutaEscolha();
+		og.addItemListener( og1 );
+        
+        embalagem1= new Choice();
+        embalagem1.addItem("true");
+		embalagem1.addItem("false");
+        this.add(embalagem1);
+        EscutaEscolha em1 = new EscutaEscolha();
+		embalagem1.addItemListener( em1);
 
-		this.add(kgs);
-		ud = new TextField();
+        prc = new TextField();
+        this.add( prc );
+        
+        kgs = new TextField();
+        this.add(kgs);
+        
+        ud = new TextField();
+        this.add( ud );
+        
+        dia = new TextField();
+        this.add( dia );
+        
+        forn = new TextField();
+        this.add( forn );
+        
+        loc = new TextField();
+        this.add( loc );
+        
+        DataTransacao= new TextField("aaaa-mm-dd");
+        this.add( DataTransacao );
 
-		this.add( ud );
-		dia = new TextField();
+        pesoProduto1 = new TextField ();
+        this.add(pesoProduto1);
 
-		this.add( dia );
-		forn = new TextField();
-
-		this.add( forn );
-		loc = new TextField();
-		this.add( loc );
-		DataTransacao= new TextField();
-		this.add( DataTransacao );
-
-
-		
-		// // Cria o botao 1
-		// botao1 = new Button("Botao <1>");
-		// this.add( botao1 );
-		// EscutaBotao1 eb1 = new EscutaBotao1();
-		// botao1.addActionListener(eb1);
-	
-		// // Cria o botao 2
-		// botao2 = new Button("Botao <2>");
-		// this.add( botao2 );
-		// EscutaBotao2 eb2 = new EscutaBotao2();
-		// botao2.addActionListener(eb2);
-		
-		// // Cria um campo para texto		
-		// campoTexto = new TextField("valor inicial");
-		// this.add( campoTexto );
-
-		// EscutaCampoTexto ect = new EscutaCampoTexto();
-		// campoTexto.addActionListener(ect);
-
-		// // Cria uma escolha
-
-		// escolha.addItem("ford");
-		// escolha.addItem("renault");
-		// escolha.addItem("crysler");
-		// this.add( escolha);
-
-		// EscutaEscolha ee = new EscutaEscolha();
-		// escolha.addItemListener( ee );
-
-		// // Cria uma lista
-		// lista = new List( 3, false);
-		// lista.add("preto");
-		// lista.add("azul");
-		// lista.add("vermelho");
-		// lista.add("amarelo");
-		// lista.add("verde");
-		// lista.add("roxo");
-		// this.add( lista);
-
-		// EscutaLista el = new EscutaLista();
-		// lista.addItemListener( el );
-
-		// // Cria uma caixa de selecao
-		// caixa = new Checkbox("caixa para marcar", false);
-		// this.add( caixa);
-		
-		// EscutaCaixa ec = new EscutaCaixa();
-		// caixa.addItemListener( ec );
-
-		// // Cria uma barra de rolagem
-		// barra = new Scrollbar( Scrollbar.HORIZONTAL, 50, 0, 0, 100);
-		// this.add( barra);
-
-		// EscutaBarra eb = new EscutaBarra();
-		// barra.addAdjustmentListener( eb );
-
-		// // Cria uma area para desenho
-		// desenho = new AreaDesenho("desenho");
-		// desenho.setColor(Color.blue);
-		// this.add(desenho);
-		
-		// desenho.setColor(Color.red);
-		// desenho.repaint();		
-
+        botao1 = new Button("Confirmar");
+        this.add(botao1);
+        EscutaBotao1 eb1 = new EscutaBotao1();
+        botao1.addActionListener(eb1);
 
 		// Para pegar o fechamento da janela
 		EscutaJanela ej = new EscutaJanela();
@@ -704,14 +646,182 @@ class JanelaPrincipal extends Frame {
 
 	// Informa o tamanho preferido
 	public Dimension getPreferredSize() {
-		return new Dimension(600, 200);
+		return new Dimension(1200, 80);
 		}
-	}
+}
+
+class JanelaMostra extends Frame {
+        private Button refresh;
+        private Label key;
+        private Label name;
+        private Label localCompany1;
+        private Label organic;
+        private Label package1;
+        private Label price;
+        private Label weight;
+        private Label unidmedia;
+        private Label days;
+        private Label kilog;
+        private Label transactionDate;
+        private Label type;
+        private Label confirm;
+        private Label company;
+        private Label weightProd;
+        private TextArea key1;
+        private TextArea comp;
+        private TextArea types;
+        private TextArea nameVegetable;
+        private TextArea localCompany;
+        private TextArea organicOrNot;
+        private TextArea packageem1;
+        private TextArea priceProduct;
+        private TextArea ud1;
+        private TextArea day;
+        private TextArea kilos;
+        private TextArea dateTransaction;
+        private TextArea weightProduto1;
+
+        class EscutaCampoTexto implements ActionListener {
+            public void actionPerformed( ActionEvent e) {
+                //areaTexto.append("TEXTO " + campoTexto.getText() + "\n"); 
+                }
+            }
 
 
-// Mude o texto escrito sobre o botao 1
+            class EscutaBotao1 implements ActionListener{
+	 	public void actionPerformed( ActionEvent e) {
 
-// Mude o comportamento de cada componente visual que gera eventos
+            
+        }	
+    }
 
-// Mude o desenho conforme algum evento
+    	class EscutaJanela extends WindowAdapter{
+		public void windowClosing(WindowEvent e){
+			System.out.println("janela foi fechada");
+			System.exit(0);            
+		}    	
+    }
+    
+        public JanelaMostra () {
 
+            System.out.println("inicio da janela");
+
+		    this.setTitle("Vegetais Disponiveis");
+
+            GridLayout gl = new GridLayout(2,14);
+            this.setLayout( gl );
+        
+            key= new Label("Codigo");
+            this.add(key);
+    
+            type=new Label ("type:");
+            this.add(type);
+    
+            name = new Label("Nome");
+            this.add(name);
+        
+            organic=new Label ("É Organico?");
+            this.add(organic);
+            
+            package1=new Label ("Possui packageem?");
+            this.add(package1);
+            
+            price = new Label ("Preco");
+            this.add(price);
+            
+            kilog = new Label ("Peso Unidade");
+            this.add(kilog);
+            
+            unidmedia = new Label ("Unidade Meday");
+            this.add(unidmedia);
+            
+            days = new Label ("Dias Validos");
+            this.add(days);
+            
+            company = new Label("Nome Fornecedor");
+            this.add(company);
+            
+            localCompany1 = new Label("Local");
+            this.add(localCompany1);
+            
+            transactionDate= new Label("Data Transacao");
+            this.add(transactionDate);
+    
+            weightProd = new Label ("Peso Total");
+            this.add(weightProd);
+
+            confirm = new Label ("Refresh");
+            this.add(confirm);
+        
+                // Cria uma area para colocalCompanyar texto
+            key1 = new TextArea();
+            key1.setEditable(false);
+            this.add( key1 );
+
+            types = new TextArea();
+            types.setEditable(false);
+            this.add(types);
+
+            nameVegetable = new TextArea();
+            nameVegetable.setEditable(false);
+            this.add( nameVegetable );
+
+            organicOrNot = new TextArea();
+            organicOrNot.setEditable(false);
+            this.add( organicOrNot );
+
+            packageem1 = new TextArea();
+            packageem1.setEditable(false);
+            this.add( packageem1 );
+
+            priceProduct = new TextArea();
+            priceProduct.setEditable(false);
+            this.add( priceProduct );
+
+            priceProduct = new TextArea();
+            priceProduct.setEditable(false);
+            this.add(priceProduct);
+
+            ud1 = new TextArea();
+            ud1.setEditable(false);
+            this.add( ud1 );
+
+            day = new TextArea();
+            day.setEditable(false);
+            this.add( day );
+
+            comp = new TextArea();
+            comp.setEditable(false);
+            this.add( comp );
+
+            localCompany = new TextArea();
+            localCompany.setEditable(false);
+            this.add( localCompany );
+
+            dateTransaction = new TextArea();
+            dateTransaction.setEditable(false);
+            this.add( dateTransaction );
+
+            weightProduto1 = new TextArea();
+            weightProduto1.setEditable(false);
+            this.add( weightProduto1 );
+
+            refresh = new Button ("Refresh");
+            this.add(refresh);
+            EscutaBotao1 eb1 = new EscutaBotao1();
+            refresh.addActionListener(eb1);
+
+            EscutaJanela ej = new EscutaJanela();
+		    this.addWindowListener(ej);
+
+            this.pack();
+            this.setVisible(true);	// "this" eh opcional
+                
+        }
+
+        public Dimension getPreferredSize() {
+		return new Dimension(1200,100);
+		}
+
+    }
+    
