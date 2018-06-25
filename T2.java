@@ -265,6 +265,33 @@ class Transacao{
         int estragou = produto.get(i).getDuracaoDias() - restam;
         return estragou;
     }
+
+    public int unidadesMedias (int i) { //retorna a média de unidades do vegetal
+        return Math.round(pesoProduto.get(i)/produto.get(i).getPesoMedio());
+    }
+    
+    public String toString(){
+        return this.nomeFornecedor;
+    }
+
+    public void PrintarInf() {
+        System.out.println("\n##############################");
+        System.out.println("Fornecedor:" + getNomeFornecedor());
+        System.out.println("Local: " + getEnderecoFornecedor() + "\n");
+        for(int i=0;i<produto.size();i++){
+            System.out.println("Nome: " + produto.get(i).getNome());
+            System.out.println("Organico: " + produto.get(i).isOrganico());
+            System.out.println("Embalagem: " + produto.get(i).isPossuiEmbalagem());
+            System.out.println("Preco: R$" + precoProduto.get(i));
+            System.out.println("Kilos: " + pesoProduto.get(i) + "kg");
+            System.out.println("Unidade Media: " + unidadesMedias(i));
+            System.out.println("\n ***Dias Restantes: " + DiasRestantes(i));   
+            if(DiasRestantes(i) < 0){
+              System.out.println("*Trocar o produto*");       
+            }
+            System.out.println("------------------");       
+        }
+    }
 }
 
 class LeTxt {
@@ -274,7 +301,6 @@ class LeTxt {
         File txtFile = new File("/home/neoson/Documents/P2-Java-Prog-Aut/text.txt");
         Scanner txtInput = new Scanner(txtFile);
         txtInput.useDelimiter("\t");
-        
         
         Transacao transacao_temp;
 
