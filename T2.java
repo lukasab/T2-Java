@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Iterator;
+import java.awt.*;
+import java.awt.event.*;
 
 abstract class Vegetal {
 
@@ -400,6 +401,7 @@ public class T2 {
         for (int i = 0; i < inf.transacoes.size(); i++) {
             System.out.println(inf.transacoes.get(i));
         }
+        new JanelaPrincipal();
     }
 }
 
