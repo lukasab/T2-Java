@@ -144,7 +144,7 @@ class Verdura extends Vegetal {
 
 class Transacao{
 
-    private LocalDate dataTransacao;
+    private ArrayList<LocalDate> dataTransacao = new ArrayList<LocalDate>();
     private String enderecoFornecedor;
     private String nomeFornecedor;
     private ArrayList<Float> pesoProduto = new ArrayList<Float>();
@@ -154,7 +154,7 @@ class Transacao{
     /**
      * @param dataTransacao the dataTransacao to set
      */
-    public void setDataTransacao(LocalDate dataTransacao) {
+    public void setDataTransacao(ArrayList<LocalDate> dataTransacao) {
         this.dataTransacao = dataTransacao;
     }
 
@@ -196,7 +196,7 @@ class Transacao{
     /**
      * @return the dataTransacao
      */
-    public LocalDate getDataTransacao() {
+    public ArrayList<LocalDate> getDataTransacao() {
         return dataTransacao;
     }
 
@@ -236,7 +236,7 @@ class Transacao{
     }
 
     Transacao (LocalDate dataTransacao, String enderecoFornecedor, String nomeFornecedor, float pesoProduto, float precoProduto, Vegetal veg) {
-        this.dataTransacao = dataTransacao;
+        this.dataTransacao.add(dataTransacao);
         this.enderecoFornecedor = enderecoFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.pesoProduto.add(pesoProduto);
@@ -244,38 +244,31 @@ class Transacao{
         this.produto.add(veg);
     }
 
-    public void AdicionaProduto(Vegetal novoVegetal) {
+    public void AdicionaProduto(Vegetal novoVegetal, float peso, float preco, LocalDate data) {
         this.produto.add(novoVegetal);
+        this.pesoProduto.add(peso);
+        this.precoProduto.add(preco);
+        this.dataTransacao.add(data);
     }
 
     public void PrintInfoProdutos() {
         for(int i = 0; i < this.produto.size(); i++){
             System.out.println("Produto " + (i+1) + ":");
-            System.out.println(this.produto.get(i));
+            System.out.println(this.produto.get(i)); //talvez mudar aqui
         }
+    }
+
+    public int DiasRestantes(int i) {
+        LocalDate hoje = LocalDate.now();
+        Period duracao = Period.between(dataTransacao.get(i), hoje);
+        int restam = duracao.getDays();
+        int estragou = produto.get(i).getDuracaoDias() - restam;
+        return estragou;
     }
 }
 
-/**
- * T2
- */
-public class T2 {
-//     /**
-//      * @return the produto
-//      */
-//     boolean VerificaFornecedor (ArrayList<Transacao> transacoes, LocalDate dataTransacao, String enderecoFornecedor, String nomeFornecedor, float pesoProduto, float precoProduto, Verdura produto){
-//         for (int i = 0; i < transacoes.size(); i++) {
-//             if (transacoes.get(i).getNomeFornecedor() == nomeFornecedor) {
-//                 transacoes.get(i).AdicionaProduto(produto);
-//                 transacoes.get(i)
-//                 return true;
-//             }
-//         }
-//         transacoes.add(e);
-//         return false;
-//     }
-    public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("Começando o Programa");
+class LeTxt {
+    LeTxt() throws FileNotFoundException{
         File txtFile = new File("/home/neoson/Documents/P2-Java-Prog-Aut/text.txt");
         Scanner txtInput = new Scanner(txtFile);
         txtInput.useDelimiter("\t");
@@ -283,12 +276,7 @@ public class T2 {
         ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
         Transacao transacao_temp;
 
-
-        int fruta_counter = 0;
-        int legume_counter = 0;
-        int verdura_counter = 0;
         boolean igual=false;
-
         while (txtInput.hasNext()) {
             String tipoVegetal = txtInput.next();
             String nomeVegetal = txtInput.next();
@@ -309,7 +297,7 @@ public class T2 {
                 if (transacoes.size() > 0) {
                     for (int i = 0; i < transacoes.size(); i++) {
                         if (transacoes.get(i).getNomeFornecedor().equals(nomeFornecedor)) {
-                            transacoes.get(i).AdicionaProduto(frute_temp);
+                            transacoes.get(i).AdicionaProduto(frute_temp, precoProduto, pesoProduto, dataTransacao);
                             igual =true;
                             break;
                         } else {
@@ -329,7 +317,7 @@ public class T2 {
                 if (transacoes.size() > 0) {
                     for (int i = 0; i < transacoes.size(); i++) {
                         if (transacoes.get(i).getNomeFornecedor().equals(nomeFornecedor)) {
-                            transacoes.get(i).AdicionaProduto(legume_temp);
+                            transacoes.get(i).AdicionaProduto(legume_temp, precoProduto, pesoProduto, dataTransacao);
                             igual =true;
                             break;
                         } else {
@@ -349,7 +337,7 @@ public class T2 {
                 if (transacoes.size() > 0) {
                     for (int i = 0; i < transacoes.size(); i++) {
                         if (transacoes.get(i).getNomeFornecedor().equals(nomeFornecedor)) {
-                            transacoes.get(i).AdicionaProduto(verdura_temp);
+                            transacoes.get(i).AdicionaProduto(verdura_temp, precoProduto, pesoProduto, dataTransacao);
                             igual =true;
                             break;
                         } else {
@@ -379,5 +367,14 @@ public class T2 {
 
         
         txtInput.close();
+    }
+}
+/**
+ * T2
+ */
+public class T2 {
+    public static void main(String[] args) throws FileNotFoundException{
+        System.out.println("Começando o Programa");
+        new LeTxt();
     }
 }
