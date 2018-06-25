@@ -268,12 +268,14 @@ class Transacao{
 }
 
 class LeTxt {
+    ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
+
     LeTxt() throws FileNotFoundException{
         File txtFile = new File("/home/neoson/Documents/P2-Java-Prog-Aut/text.txt");
         Scanner txtInput = new Scanner(txtFile);
         txtInput.useDelimiter("\t");
         
-        ArrayList<Transacao> transacoes = new ArrayList<Transacao>();
+        
         Transacao transacao_temp;
 
         boolean igual=false;
@@ -356,16 +358,6 @@ class LeTxt {
                 System.out.println("Tipo de produto invalido");
             }
         }
-        System.out.println(transacoes.size());
-        
-        for (int i = 0; i < transacoes.size(); i++) {
-            System.out.println(transacoes.get(i).getNomeFornecedor());
-            for (int j = 0; j < transacoes.get(i).getProduto().size(); j++) {
-                System.out.println(transacoes.get(i).getProduto().get(j).getNome());
-            }
-        } 
-
-        
         txtInput.close();
     }
 }
@@ -375,6 +367,15 @@ class LeTxt {
 public class T2 {
     public static void main(String[] args) throws FileNotFoundException{
         System.out.println("Começando o Programa");
-        new LeTxt();
+        System.out.println("Lendo Infromação do txt");
+        LeTxt inf = new LeTxt();
+        System.out.println("Informação lida");
+        //System.out.println(l.transacoes.get(0).getNomeFornecedor());
+        for (int i = 0; i < inf.transacoes.size(); i++) {
+            System.out.println(inf.transacoes.get(i).getNomeFornecedor());
+            for (int j = 0; j < inf.transacoes.get(i).getProduto().size(); j++) {
+                System.out.println(inf.transacoes.get(i).getProduto().get(j).getNome());
+            }
+        }
     }
 }
