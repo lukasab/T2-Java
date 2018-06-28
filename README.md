@@ -1,0 +1,3 @@
+# T2-Java
+Trabalho 2 de Java - UFSC
+Trabalho 2 de programação de sistemas automatizados: Implementar em Java um sistema de informações administrativas que permita ao usuário fazer operações como cadastros e consultas. Faça um programa em Java que implemente um cadastro de objetos encontrados usualmente em um dos contextos listados abaixo. Os dados são fixos, obtidos a partir de um arquivo de texto, linha a linha. Não existe interface com o usuário, todas as operações são incluídas no código do programa. Cada grupo de alunos deve escolher um contexto específico e único. O programa precisa apenas organizar os dados em memória, nenhuma lógica do negócio será implementada neste momento. A ênfase do trabalho está no design orientado a objetos.
