@@ -1,5 +1,5 @@
 F	Banana prata	true	false	5	001	0.100	Almeida	Palhoca	20	2018-05-21	10
-	Verdura	Salsa	true	false	4	023	0.150	Almeida	Palhoca	15	2018-05-21	10
+	V	Salsa	true	false	4	023	0.150	Almeida	Palhoca	15	2018-05-21	10
 	V	Cebolinha	false	false	7	024	0.200	Florinda	Antonio Carlos	5	2018-05-23	2
 	F	Morango	false	true	3	004	0.240	Souza SA	Antonio Carlos	60	2018-05-22	5
 	F	Melao	false	false	5	002	0.600	Janaina	Biguacu	20	2018-05-20	8
@@ -15,5 +15,5 @@ F	Banana prata	true	false	5	001	0.100	Almeida	Palhoca	20	2018-05-21	10
 	L	Alho	false	true	10	033	0.300	Jose	Florianopolis	40	2018-05-21	7
 	L	Batata-doce	false	false	5	039	0.100	Florinda	Antonio Carlos	12	2018-05-22	4
 	L	Abobora	false	false	5	039	1.100	Florinda	Antonio Carlos	12	2018-05-21	4
-	F	Goiaba	true	false	3	005	4	Lukas	Floripa	8	2018-06-24	100	F	Goiaba	true	false	3	005	4	Lukas	Floripa	8	2018-06-24	100
-	V	Abobora	true	false	7	000	0.3	Marina MST	Sem Local	120	2018-06-24	3100
+	F	Goiaba	true	false	3	005	4	Lukas	Floripa	8	2018-06-24	100
+	L	Melancia	false	false	10	025	1	Almeida	Amapa	50	2018-05-01	1	F	Morango	true	true	5	002	20	Lukas	Floripa	1000	2018-06-19	1000

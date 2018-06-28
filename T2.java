@@ -456,19 +456,7 @@ class JanelaPrincipal extends Frame {
 	// // Classe interna para receber eventos do botao 1
 	class EscutaBotao1 implements ActionListener{
 	 	public void actionPerformed( ActionEvent e) {
-            // String codigo = codigo1.getText();
-            // String tipoVegetal = escolha.getSelectedItem();
-            // String nomeVegetal = nom.getText();
-            // boolean organico = Boolean.valueOf(og.getSelectedItem());
-            // boolean embalagem = Boolean.valueOf(embalagem1.getSelectedItem());
-            // int duracaoDias = Integer.parseInt(dia.getText());
-            // Float pesoMedio = Float.parseFloat(kgs.getText());
 
-            // String nomeFornecedor = forn.getText();
-            // String enderecoFornecedor = loc.getText();
-            // float precoProduto = Float.parseFloat(prc.getText());
-            // LocalDate dataTransacao = LocalDate.parse(DataTransacao.getText());
-            // float pesoProduto = Float.parseFloat(pesoProduto1.getText());
             String novoTipo = "";
             if (escolha.getSelectedItem().equals("Fruta")) {
                 novoTipo = "F";
@@ -549,9 +537,6 @@ class JanelaPrincipal extends Frame {
         kilos = new Label ("Peso Unidade");
         this.add(kilos);
         
-        un = new Label ("Unidade Media");
-        this.add(un);
-        
         dias = new Label ("Dias Validos");
 		this.add(dias);
         
@@ -607,9 +592,6 @@ class JanelaPrincipal extends Frame {
         kgs = new TextField();
         this.add(kgs);
         
-        ud = new TextField();
-        this.add( ud );
-        
         dia = new TextField();
         this.add( dia );
         
@@ -646,7 +628,7 @@ class JanelaPrincipal extends Frame {
 
 	// Informa o tamanho preferido
 	public Dimension getPreferredSize() {
-		return new Dimension(1200, 80);
+		return new Dimension(1600, 80);
 		}
 }
 
@@ -681,19 +663,77 @@ class JanelaMostra extends Frame {
         private TextArea dateTransaction;
         private TextArea weightProduto1;
 
-        class EscutaCampoTexto implements ActionListener {
-            public void actionPerformed( ActionEvent e) {
-                //areaTexto.append("TEXTO " + campoTexto.getText() + "\n"); 
+        // class EscutaCampoTexto implements ActionListener {
+        //     public void actionPerformed( ActionEvent e) {
+        //         //areaTexto.append("TEXTO " + campoTexto.getText() + "\n"); 
+        //         }
+        //     }
+
+
+        class EscutaRefresh implements ActionListener{
+	 	    public void actionPerformed( ActionEvent e){
+                
+                try {
+                    LeTxt inf = new LeTxt();
+                    comp.setText("");
+                    key1.setText("");
+                    types.setText("");
+                    nameVegetable.setText("");
+                    localCompany.setText("");
+                    organicOrNot.setText("");
+                    packageem1.setText("");
+                    priceProduct.setText("");
+                    kilos.setText("");
+                    day.setText("");
+                    weightProduto1.setText("");
+                    dateTransaction.setText("");
+                    ud1.setText("");
+                    for(int i = 0; i < inf.transacoes.size(); i++){
+                        comp.append(inf.transacoes.get(i).getNomeFornecedor() + "\n");
+                        for(int j = 0; j < inf.transacoes.get(i).getProduto().size(); j++){
+                            comp.append("\n");
+                            key1.append(inf.transacoes.get(i).getProduto().get(j).getCodigo() + "\n");
+                            if(inf.transacoes.get(i).getProduto().get(j) instanceof Fruta){
+                                types.append("Fruta\n");
+                            } else if (inf.transacoes.get(i).getProduto().get(j) instanceof Legume){
+                                types.append("Legume\n");
+                            } else {
+                                types.append("Verdura\n");
+                            }
+                        nameVegetable.append(inf.transacoes.get(i).getProduto().get(j).getNome() + "\n");
+                        localCompany.append(inf.transacoes.get(i).getEnderecoFornecedor() + "\n");
+                        organicOrNot.append(inf.transacoes.get(i).getProduto().get(j).isOrganico() + "\n");
+                        packageem1.append(inf.transacoes.get(i).getProduto().get(j).isPossuiEmbalagem() + "\n");
+                        priceProduct.append(inf.transacoes.get(i).getPrecoProduto().get(j) + "\n");
+                        kilos.append(inf.transacoes.get(i).getProduto().get(j).getPesoMedio() + "\n");
+                        if(inf.transacoes.get(i).DiasRestantes(j) < 0){
+                            day.append("Expirou ha " + Math.abs(inf.transacoes.get(i).DiasRestantes(j))+"\n");
+                        }else{
+                            day.append(inf.transacoes.get(i).DiasRestantes(j) + "\n"); 
+                        }
+                        weightProduto1.append(inf.transacoes.get(i).getPesoProduto().get(j)+ "\n");
+                        dateTransaction.append(inf.transacoes.get(i).getDataTransacao().get(j) + "\n");
+                        ud1.append(inf.transacoes.get(i).unidadesMedias(j) + "\n");
+                        }
+
+                        key1.append("\n");
+                        types.append("\n");
+                        nameVegetable.append("\n");
+                        localCompany.append("\n");
+                        organicOrNot.append("\n");
+                        packageem1.append("\n");
+                        priceProduct.append("\n");
+                        kilos.append("\n");
+                        day.append("\n");
+                        weightProduto1.append("\n");
+                        dateTransaction.append("\n");
+                        ud1.append("\n");
+                    }
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Nao achou o arquivo");
                 }
-            }
-
-
-            class EscutaBotao1 implements ActionListener{
-	 	public void actionPerformed( ActionEvent e) {
-
-            
-        }	
-    }
+            }	
+        }
 
     	class EscutaJanela extends WindowAdapter{
 		public void windowClosing(WindowEvent e){
@@ -702,7 +742,7 @@ class JanelaMostra extends Frame {
 		}    	
     }
     
-        public JanelaMostra () {
+        JanelaMostra () throws FileNotFoundException {
 
             System.out.println("inicio da janela");
 
@@ -710,11 +750,14 @@ class JanelaMostra extends Frame {
 
             GridLayout gl = new GridLayout(2,14);
             this.setLayout( gl );
-        
+
+            company = new Label("Fornecedor");
+            this.add(company);
+
             key= new Label("Codigo");
             this.add(key);
     
-            type=new Label ("type:");
+            type=new Label ("Tipo:");
             this.add(type);
     
             name = new Label("Nome");
@@ -723,23 +766,22 @@ class JanelaMostra extends Frame {
             organic=new Label ("É Organico?");
             this.add(organic);
             
-            package1=new Label ("Possui packageem?");
+            package1=new Label ("Tem Embalagem?");
             this.add(package1);
             
-            price = new Label ("Preco");
+            price = new Label ("Preço");
             this.add(price);
+
+            // peso unidade
             
-            kilog = new Label ("Peso Unidade");
+            kilog = new Label ("Peso Unid");
             this.add(kilog);
             
-            unidmedia = new Label ("Unidade Meday");
+            unidmedia = new Label ("Unid Med");
             this.add(unidmedia);
             
-            days = new Label ("Dias Validos");
+            days = new Label ("Dias Restantes");
             this.add(days);
-            
-            company = new Label("Nome Fornecedor");
-            this.add(company);
             
             localCompany1 = new Label("Local");
             this.add(localCompany1);
@@ -753,7 +795,12 @@ class JanelaMostra extends Frame {
             confirm = new Label ("Refresh");
             this.add(confirm);
         
-                // Cria uma area para colocalCompanyar texto
+            // Cria uma area para colocalCompanyar texto
+
+            comp = new TextArea();
+            comp.setEditable(false);
+            this.add( comp );
+
             key1 = new TextArea();
             key1.setEditable(false);
             this.add( key1 );
@@ -776,11 +823,11 @@ class JanelaMostra extends Frame {
 
             priceProduct = new TextArea();
             priceProduct.setEditable(false);
-            this.add( priceProduct );
-
-            priceProduct = new TextArea();
-            priceProduct.setEditable(false);
             this.add(priceProduct);
+
+            kilos = new TextArea();
+            kilos.setEditable(false);
+            this.add( kilos );
 
             ud1 = new TextArea();
             ud1.setEditable(false);
@@ -789,10 +836,6 @@ class JanelaMostra extends Frame {
             day = new TextArea();
             day.setEditable(false);
             this.add( day );
-
-            comp = new TextArea();
-            comp.setEditable(false);
-            this.add( comp );
 
             localCompany = new TextArea();
             localCompany.setEditable(false);
@@ -808,19 +851,19 @@ class JanelaMostra extends Frame {
 
             refresh = new Button ("Refresh");
             this.add(refresh);
-            EscutaBotao1 eb1 = new EscutaBotao1();
+            EscutaRefresh eb1 = new EscutaRefresh();
             refresh.addActionListener(eb1);
 
             EscutaJanela ej = new EscutaJanela();
 		    this.addWindowListener(ej);
 
             this.pack();
-            this.setVisible(true);	// "this" eh opcional
+            this.setVisible(true);
                 
         }
 
         public Dimension getPreferredSize() {
-		return new Dimension(1200,100);
+		return new Dimension(1600,800);
 		}
 
     }
